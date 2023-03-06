@@ -155,14 +155,14 @@ func UpdateFood() gin.HandlerFunc {
 		}
 
 		if food.Menu_id != nil {
-			err:= menuCollection.FindOne(ctx, bson.M{"manu_id": food.Menu_id}).Decode(&menu)
+			err:= menuCollection.FindOne(ctx, bson.M{"menu_id": food.Menu_id}).Decode(&menu)
 			defer cancel()
 			if err!= nil{
 				msg := fmt.Sprintf("message:Menu was not found")
 				c.JSON(http.StatusInternalServerError, gin.H{"error":msg})
 				return
 			}
-			updateObj = append(updateObj, bson.E{"menu", food.Menu_id})
+			updateObj = append(updateObj, bson.E{"menu_id", food.Menu_id})
 		}
 
 		food.Updated_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
